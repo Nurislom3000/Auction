@@ -25,7 +25,7 @@ export const usersModule = {
 	actions: {
 		async sendUser({ state }) {
 			await axios
-				.post('https://b1fc734675d7d28d.mokky.dev/users', state.user)
+				.post('https://79aba9a04b69b6f8.mokky.dev/users', state.user)
 				.then(response => {
 					state.user.id = response.data.id
 					localStorage.setItem('user', JSON.stringify(state.user))
@@ -34,7 +34,7 @@ export const usersModule = {
 
 		async checkUser({ state, dispatch }, router) {
 			await axios
-				.get('https://b1fc734675d7d28d.mokky.dev/users')
+				.get('https://79aba9a04b69b6f8.mokky.dev/users')
 				.then(response => {
 					const hasUser = response.data.some(
 						user => user.email == state.user.email
@@ -65,7 +65,7 @@ export const usersModule = {
 
 		async getUsers({ state }, router) {
 			await axios
-				.get('https://b1fc734675d7d28d.mokky.dev/users')
+				.get('https://79aba9a04b69b6f8.mokky.dev/users')
 				.then(response => {
 					const hasUser = response.data.find(
 						user =>
