@@ -5,8 +5,7 @@ export const productsModule = {
 	state: () => ({
 		products: [],
 	}),
-	getters: {},
-	mutations: {},
+
 	actions: {
 		async getProducts({ state }) {
 			await axios

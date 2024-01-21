@@ -5,20 +5,13 @@
 			<h5 class="card-title">{{ product.title }}</h5>
 			<p class="card-text">${{ product.price }}</p>
 
-			<button
-				v-change-color="product.id"
-				class="btn btn-primary"
-				@click="
-					$store.dispatch('productModule/AddToCart', product.id), shower()
-				"
-			>
-				Add
-			</button>
+			<ProgressBar :productID="product.id" :shower="shower" />
 		</div>
 	</div>
 </template>
 
 <script>
+import ProgressBar from '@/components/ProgressBar.vue'
 export default {
 	name: 'productCard',
 
@@ -26,6 +19,7 @@ export default {
 		product: [Object],
 		shower: [Function],
 	},
+	components: { ProgressBar },
 }
 </script>
 
