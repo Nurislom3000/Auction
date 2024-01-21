@@ -6,7 +6,7 @@ export default {
 			try {
 				await axios
 					.patch(
-						`https://b1fc734675d7d28d.mokky.dev/users/${ID.value}`,
+						`https://79aba9a04b69b6f8.mokky.dev/users/${ID.value}`,
 						JSON.parse(localStorage.getItem('user'))
 					)
 					.then(response => {
