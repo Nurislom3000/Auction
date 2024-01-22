@@ -25,7 +25,9 @@ export const productsModule = {
 						const soldProduct = response.data.find(sold => sold.id == productID)
 
 						user.basket.push(soldProduct)
+
 						localStorage.setItem('user', JSON.stringify(user))
+						console.log(JSON.parse(localStorage.getItem('user')))
 					} catch (error) {
 						router.push('/reg')
 					}

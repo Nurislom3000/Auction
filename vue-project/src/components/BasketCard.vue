@@ -37,6 +37,7 @@ img {
 .btn-danger {
 	/*margin-left: 10%;*/
 	margin-top: 10%;
+	margin-bottom: 70px;
 }
 
 .href {

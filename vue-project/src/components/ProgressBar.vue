@@ -1,15 +1,15 @@
 <template>
 	<div>
 		<button
-			@click="
-				$store.dispatch('productModule/AddToCart', productID),
-					shower(),
-					startProgress(),
-					(isDisabled = true)
-			"
+			@click="startProgress(), (isDisabled = true)"
 			:disabled="isDisabled"
 		>
-			<div class="progress-bar-container bg-primary">
+			<div
+				:class="{
+					'bg-secondary': grey,
+				}"
+				class="progress-bar-container bg-primary"
+			>
 				<div class="progress-bar" :style="{ width: progress + '%' }"></div>
 				<span>Add</span>
 			</div>
@@ -19,6 +19,7 @@
 
 <script>
 import { ref } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
 	props: {
@@ -26,12 +27,15 @@ export default {
 		shower: [Function],
 	},
 
-	setup() {
+	setup(props) {
+		const store = useStore()
 		const progress = ref(0)
 		let interval
 		let isDisabled = ref(false)
+		let grey = ref(false)
 
 		function startProgress() {
+			grey.value = true
 			clearInterval(interval)
 			progress.value = 0
 			interval = setInterval(() => {
@@ -41,7 +45,9 @@ export default {
 					clearInterval(interval)
 					setTimeout(() => {
 						isDisabled.value = !isDisabled
-
+						grey.value = false
+						store.dispatch('productModule/AddToCart', props.productID)
+						props.shower()
 						progress.value = 0
 					}, 1000) // Ждем 1 секунду перед началом нового прогресса
 				}
@@ -52,6 +58,7 @@ export default {
 			progress,
 			startProgress,
 			isDisabled,
+			grey,
 		}
 	},
 }
