@@ -18,8 +18,9 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
+import axios from 'axios'
 
 export default {
 	props: {
@@ -34,6 +35,15 @@ export default {
 		let isDisabled = ref(false)
 		let grey = ref(false)
 
+		async function byProduct() {
+			await axios.patch(
+				`https://79aba9a04b69b6f8.mokky.dev/products/${props.productID}`,
+				{
+					isSelled: true,
+				}
+			)
+		}
+
 		function startProgress() {
 			grey.value = true
 			clearInterval(interval)
@@ -44,11 +54,12 @@ export default {
 				if (progress.value >= 100) {
 					clearInterval(interval)
 					setTimeout(() => {
-						isDisabled.value = !isDisabled
-						grey.value = false
+						// isDisabled.value = !isDisabled
+						// grey.value = false
 						store.dispatch('productModule/AddToCart', props.productID)
 						props.shower()
-						progress.value = 0
+						// progress.value = 0
+						byProduct()
 					}, 1000) // Ждем 1 секунду перед началом нового прогресса
 				}
 			}, 1000)
@@ -59,6 +70,7 @@ export default {
 			startProgress,
 			isDisabled,
 			grey,
+			byProduct,
 		}
 	},
 }
